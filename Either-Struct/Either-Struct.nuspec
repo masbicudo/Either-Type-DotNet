@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>0.0.0</version>
-    <title>Masb.Either</title>
+    <id>Masb.Either</id>
+    <version>0.0.2</version>
+    <title>Either Monad by MASBicudo</title>
     <authors>Miguel Angelo (masbicudo)</authors>
     <owners>Miguel Angelo</owners>
     <licenseUrl>https://github.com/masbicudo/Either-Type-DotNet/blob/master/LICENSE</licenseUrl>
