@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>0.0.0</version>
+    <title>Masb.Either</title>
+    <authors>Miguel Angelo (masbicudo)</authors>
+    <owners>Miguel Angelo</owners>
+    <licenseUrl>https://github.com/masbicudo/Either-Type-DotNet/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/masbicudo/Either-Type-DotNet</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/masbicudo/Either-Type-DotNet/master/Either-Struct/icon-256.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>
+        Atempt to create an Either monad.
+    </summary>
+    <description>
+        See the project page for more.
+    </description>
+    <releaseNotes>
+        0.0.0 - initial release - Either with up to 16 alternating types
+        See the project page for more.
+    </releaseNotes>
+    <copyright>Copyright MASBicudo 2016</copyright>
+    <tags>
+        either monad masbicudo miguel angelo
+    </tags>
+  </metadata>
+</package>
