@@ -40,25 +40,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EitherFactory.cs" />
-    <Compile Include="IEither.cs" />
-    <Compile Include="Either.cs">
+    <Compile Include="EitherFactory.gen.cs">
+      <DependentUpon>EitherFactory.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Either.gen.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Either.tt</DependentUpon>
     </Compile>
+    <Compile Include="IEither.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EitherFactory.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EitherFactory.gen.cs</LastGenOutput>
+    </Content>
     <Content Include="Either.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Either.cs</LastGenOutput>
+      <LastGenOutput>Either.gen.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="EitherFactory.ttinclude" />
     <None Include="Either.ttinclude" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

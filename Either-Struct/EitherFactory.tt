@@ -1,0 +1,6 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ output extension=".gen.cs"#><#
+	TypeKind = "struct";
+	TypeName = "Either";
+#>
+<#@ include file="EitherFactory.ttinclude"#>
