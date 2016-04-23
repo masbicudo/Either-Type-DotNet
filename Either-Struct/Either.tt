@@ -1,6 +1,6 @@
 ﻿<#@ template language="C#" debug="false" hostspecific="true"#>
-<#@ output extension=".cs"#><#
+<#@ output extension=".gen.cs"#><#
 	TypeKind = "struct";
 	TypeName = "Either";
 #>
-<#@ include file="ActionFuncGen.ttinclude"#>
+<#@ include file="Either.ttinclude"#>
