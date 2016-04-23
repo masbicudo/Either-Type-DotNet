@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Masb.Either.ForJsonNet</id>
+    <version>0.0.0</version>
+    <title>Either Monad for Json.NET by MASBicudo</title>
+    <authors>Miguel Angelo (masbicudo)</authors>
+    <owners>Miguel Angelo</owners>
+    <licenseUrl>https://github.com/masbicudo/Either-Type-DotNet/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/masbicudo/Either-Type-DotNet</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/masbicudo/Either-Type-DotNet/master/Either-For-JsonNet/icon-256.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>
+        Serialization of the Either monad using Json.NET.
+        Implemented as a custom converter.
+    </summary>
+    <description>
+        See the project page for more.
+    </description>
+    <releaseNotes>
+        0.0.0 - initial release
+        See the project page for more.
+    </releaseNotes>
+    <copyright>Copyright MASBicudo 2016</copyright>
+    <tags>
+        either monad for Json.NET masbicudo masb miguel angelo
+    </tags>
+  </metadata>
+</package>
