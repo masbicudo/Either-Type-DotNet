@@ -75,7 +75,7 @@
     <Compile Include="EitherNewTests.cs" />
     <Compile Include="NHibernateTests.cs" />
     <Compile Include="JsonNetTests.cs" />
-    <Compile Include="BclTests.cs" />
+    <Compile Include="EitherFactoryTests.cs" />
     <Compile Include="NHibernate.Code\Database.cs" />
     <Compile Include="NHibernate.Code\MsSql2008Database.cs" />
     <Compile Include="NHibernate.Maps\EitherRootNHMap.cs" />

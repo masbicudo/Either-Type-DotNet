@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Either_Tests
 {
     [TestClass]
-    public class BclTests
+    public class EitherFactoryTests
     {
         [TestMethod]
         public void TestMethod1()
@@ -112,6 +112,29 @@ namespace Either_Tests
             Assert.AreEqual(null, either.Value);
             Assert.AreEqual(null, either.Value1);
             Assert.AreEqual(null, either.Value2);
+        }
+
+        [TestMethod]
+        public void TestMethod8()
+        {
+            var either = (Either<string, int>)Either.Factory.Create(null, typeof(string), typeof(int));
+
+            // in this case, selector is 0, because the value is null
+            // as both types are nullable, then reading from any of the alternatives shout return null
+            Assert.AreEqual(0, either.GetSelectedAlternative());
+            Assert.AreEqual(null, either.Value);
+            Assert.AreEqual(null, either.Value1);
+
+            Exception exception = null;
+            try
+            {
+                var value2 = either.Value2;
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+            Assert.IsInstanceOfType(exception, typeof(Exception));
         }
     }
 }
