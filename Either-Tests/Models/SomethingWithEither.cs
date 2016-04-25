@@ -1,6 +1,6 @@
 using BCL;
 
-namespace Either_Tests
+namespace Either_Tests.Models
 {
     public class SomethingWithEither<T1, T2>
     {

@@ -48,7 +48,7 @@ namespace Either_Tests.NHibernate.Code
             finally
             {
                 s.Stop();
-                Debug.Print($"Fluently.Configure() - {s.ElapsedMilliseconds}ms");
+                Debug.Print($"NHibernate configuration - {s.ElapsedMilliseconds}ms");
             }
         }
 

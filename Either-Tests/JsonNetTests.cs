@@ -1,25 +1,15 @@
 ﻿using BCL;
-using Either_For_JsonNet;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using Either_Tests.BaseTestClasses;
+using Either_Tests.Models;
 
 namespace Either_Tests
 {
     [TestClass]
-    public class JsonNetTests
+    public class JsonNetTests : JsonNetTestsBase
     {
-        [TestInitialize]
-        private static void InitJsonConvert()
-        {
-            JsonConvert.DefaultSettings = () =>
-            {
-                var settings = new JsonSerializerSettings();
-                settings.Converters.Add(new EitherJsonConverter());
-                return settings;
-            };
-        }
-
         [TestMethod]
         public void TestMethod1()
         {

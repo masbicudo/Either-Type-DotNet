@@ -1,5 +1,6 @@
 ﻿using System;
 using BCL;
+using Either_Tests.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Either_Tests
