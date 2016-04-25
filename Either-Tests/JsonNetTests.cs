@@ -137,10 +137,17 @@ namespace Either_Tests
             Assert.AreEqual("A", obj.Value1[0]);
             Assert.AreEqual("B", obj.Value1[1]);
         }
-    }
 
-    public class SomethingWithEither<T1, T2>
-    {
-        public Either<T1, T2> Either { get; set; }
+        [TestMethod]
+        public void TestMethos10()
+        {
+            InitJsonConvert();
+
+            Either<IList<string>, IDictionary<string, string>> obj = new[] { "1", "2" };
+
+            var jsonStr = JsonConvert.SerializeObject(obj);
+
+            Assert.AreEqual(jsonStr, @"[""1"",""2""]");
+        }
     }
 }

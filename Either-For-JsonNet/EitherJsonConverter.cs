@@ -40,24 +40,30 @@ namespace Either_For_JsonNet
             }
             else if (reader.TokenType == JsonToken.StartObject)
             {
-                var nonPrimitiveTypes = subtypes.Where(x => !x.IsPrimitive && x != typeof(string)).ToArray();
-                var dicTypes = nonPrimitiveTypes
+                var nonPrimitiveNorCollectionTypes = subtypes
+                    .Where(x => !x.IsPrimitive && x != typeof(string))
+                    .Where(x => !x.IsGenericType || !typeof(IEnumerable<>).IsAssignableFrom(x.GetGenericTypeDefinition()))
+                    .ToArray();
+
+                var dictionaryTypes = subtypes
                     .Where(x => x.IsGenericType)
                     .Where(x => typeof(IDictionary<,>).IsAssignableFrom(x.GetGenericTypeDefinition()))
                     .ToArray();
 
-                if (dicTypes.Length == 1)
+                if (nonPrimitiveNorCollectionTypes.Length == 1)
                 {
                     var jobj = JObject.Load(reader);
-                    value =
-                        Activator.CreateInstance(
-                            typeof(Dictionary<,>).MakeGenericType(dicTypes[0].GetGenericArguments()));
+                    value = Activator.CreateInstance(nonPrimitiveNorCollectionTypes[0]);
                     serializer.Populate(jobj.CreateReader(), value);
                 }
-                else if (nonPrimitiveTypes.Length == 1)
+                else if (dictionaryTypes.Length == 1)
                 {
+                    var dictionaryType = dictionaryTypes[0].GetGenericTypeDefinition() == typeof(IDictionary<,>)
+                        ? typeof(Dictionary<,>).MakeGenericType(dictionaryTypes[0].GetGenericArguments())
+                        : dictionaryTypes[0];
+
+                    value = Activator.CreateInstance(dictionaryType);
                     var jobj = JObject.Load(reader);
-                    value = Activator.CreateInstance(nonPrimitiveTypes[0]);
                     serializer.Populate(jobj.CreateReader(), value);
                 }
                 else
@@ -75,7 +81,9 @@ namespace Either_For_JsonNet
                     ).ToArray();
 
                 if (listTypes.Length == 1)
-                    value = serializer.Deserialize(reader, typeof(List<>).MakeGenericType(listTypes[0].GetGenericArguments()));
+                {
+                    value = serializer.Deserialize(reader, listTypes[0]);
+                }
                 else
                     throw new InvalidOperationException("Cannot decide between types to deserialize.");
             }
