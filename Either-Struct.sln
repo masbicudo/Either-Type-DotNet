@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Either-For-JsonNet", "Eithe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Either-Tests", "Either-Tests\Either-Tests.csproj", "{96A04278-9D4B-409D-9A1C-815FAA6027A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Either-For-NHibernate", "Either-For-NHibernate\Either-For-NHibernate.csproj", "{13B2C452-7340-4317-AB13-F1DC793DFAC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{96A04278-9D4B-409D-9A1C-815FAA6027A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96A04278-9D4B-409D-9A1C-815FAA6027A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96A04278-9D4B-409D-9A1C-815FAA6027A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13B2C452-7340-4317-AB13-F1DC793DFAC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13B2C452-7340-4317-AB13-F1DC793DFAC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13B2C452-7340-4317-AB13-F1DC793DFAC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13B2C452-7340-4317-AB13-F1DC793DFAC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

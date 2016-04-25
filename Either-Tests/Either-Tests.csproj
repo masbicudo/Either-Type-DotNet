@@ -35,8 +35,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -54,8 +62,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="NHibernateTests.cs" />
     <Compile Include="JsonNetTests.cs" />
     <Compile Include="BclTests.cs" />
+    <Compile Include="NHibernate\RootNHMap.cs" />
+    <Compile Include="NHibernate\Root.cs" />
     <Compile Include="SomeClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SomethingWithEither.cs" />
@@ -67,6 +78,10 @@
       <Project>{7c08d4dd-54a2-4f5e-82e9-ced093a6797a}</Project>
       <Name>Either-For-JsonNet</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Either-For-NHibernate\Either-For-NHibernate.csproj">
+      <Project>{13b2c452-7340-4317-ab13-f1dc793dfac9}</Project>
+      <Name>Either-For-NHibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Either-Struct\Either-Struct.csproj">
       <Project>{8f368665-641e-45a8-b3e2-4a5125286416}</Project>
       <Name>Either-Struct</Name>
@@ -75,6 +90,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
