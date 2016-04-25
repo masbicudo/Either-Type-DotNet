@@ -1,8 +1,8 @@
 ﻿using BCL;
 
-namespace Either_Tests.NHibernate
+namespace Either_Tests.NHibernate.Models
 {
-    public class Root
+    public class EitherRoot
     {
         public virtual int Id { get; set; }
         public Either<string, int> StringOrInt { get; set; }
