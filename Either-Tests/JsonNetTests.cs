@@ -9,6 +9,7 @@ namespace Either_Tests
     [TestClass]
     public class JsonNetTests
     {
+        [TestInitialize]
         private static void InitJsonConvert()
         {
             JsonConvert.DefaultSettings = () =>
@@ -22,8 +23,6 @@ namespace Either_Tests
         [TestMethod]
         public void TestMethod1()
         {
-            InitJsonConvert();
-
             var either = (Either<int, string>)Either.Factory.Create(1, typeof(int), typeof(string));
 
             var jsonStr = JsonConvert.SerializeObject(either);
@@ -34,8 +33,6 @@ namespace Either_Tests
         [TestMethod]
         public void TestMethos2()
         {
-            InitJsonConvert();
-
             var jsonStr = "1";
 
             var either = JsonConvert.DeserializeObject<Either<int, string>>(jsonStr);
@@ -46,8 +43,6 @@ namespace Either_Tests
         [TestMethod]
         public void TestMethos3()
         {
-            InitJsonConvert();
-
             var jsonStr = "1.1";
 
             var either = JsonConvert.DeserializeObject<Either<float, string>>(jsonStr);
@@ -58,8 +53,6 @@ namespace Either_Tests
         [TestMethod]
         public void TestMethos4()
         {
-            InitJsonConvert();
-
             var jsonStr = "{Either:1.1}";
 
             var obj = JsonConvert.DeserializeObject<SomethingWithEither<float, string>>(jsonStr);
@@ -70,8 +63,6 @@ namespace Either_Tests
         [TestMethod]
         public void TestMethos5()
         {
-            InitJsonConvert();
-
             var jsonStr = @"{Either:{Name:""Miguel""}}";
 
             var obj = JsonConvert.DeserializeObject<SomethingWithEither<SomeClass, int>>(jsonStr);
@@ -82,8 +73,6 @@ namespace Either_Tests
         [TestMethod]
         public void TestMethos6()
         {
-            InitJsonConvert();
-
             var obj = new SomethingWithEither<SomeClass, int>
             {
                 Either = new Either<SomeClass, int>(new SomeClass { Name = "Miguel" })
@@ -97,8 +86,6 @@ namespace Either_Tests
         [TestMethod]
         public void TestMethos7()
         {
-            InitJsonConvert();
-
             var obj = new SomethingWithEither<SomeClass, int>
             {
                 Either = new Either<SomeClass, int>(new SomeClass { Name = "Miguel" })
@@ -116,8 +103,6 @@ namespace Either_Tests
         [TestMethod]
         public void TestMethos8()
         {
-            InitJsonConvert();
-
             var jsonStr = @"{""A"":""a""}";
 
             var obj = JsonConvert.DeserializeObject<Either<IList<string>, IDictionary<string, string>>>(jsonStr);
@@ -128,8 +113,6 @@ namespace Either_Tests
         [TestMethod]
         public void TestMethos9()
         {
-            InitJsonConvert();
-
             var jsonStr = @"[""A"",""B""]";
 
             var obj = JsonConvert.DeserializeObject<Either<IList<string>, IDictionary<string, string>>>(jsonStr);
@@ -141,8 +124,6 @@ namespace Either_Tests
         [TestMethod]
         public void TestMethos10()
         {
-            InitJsonConvert();
-
             Either<IList<string>, IDictionary<string, string>> obj = new[] { "1", "2" };
 
             var jsonStr = JsonConvert.SerializeObject(obj);
