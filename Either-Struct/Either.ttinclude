@@ -207,7 +207,7 @@ for (int sit = 1; sit <= it; sit++)
 
     public bool Equals(IEither other)
     {
-        if (other == null)
+        if (other == null || !this.IsValid() || !other.IsValid())
             return false;
 
         if (this.GetUnderlyingType() == other.GetUnderlyingType())
@@ -218,10 +218,43 @@ for (int sit = 1; sit <= it; sit++)
 
     public override bool Equals(object obj)
     {
+        if (!this.IsValid())
+            return false;
+
+        if (obj == null)
+            return this.selector == 0;
+
         var other = obj as IEither;
-        return this.Equals(other);
+        if (other != null)
+			return this.Equals(other);
+
+        return this.Value.Equals(other.Value);
     }
 
+<#
+for (int sit = 1; sit <= it; sit++)
+{
+#>
+    public bool Equals(T<#=sit#> other)
+    {
+        if (this.selector == <#=sit#>)
+            return EqualityComparer<T<#=sit#>>.Default.Equals(this.value<#=sit#>, other);
+        return false;
+    }
+	
+    public static bool operator ==(<#=TypeName#><<#=subtypesList#>> either, T<#=sit#> other)
+    {
+        return either.Equals(other);
+    }
+
+    public static bool operator !=(<#=TypeName#><<#=subtypesList#>> either, T<#=sit#> other)
+    {
+        return !(either == other);
+    }
+
+<#
+}
+#>
     public override int GetHashCode()
     {
 <#
