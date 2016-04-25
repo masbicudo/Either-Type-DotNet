@@ -207,10 +207,33 @@ for (int sit = 1; sit <= it; sit++)
 
     public bool Equals(IEither other)
     {
+        if (other == null)
+            return false;
+
         if (this.GetUnderlyingType() == other.GetUnderlyingType())
             return this.Value.Equals(other.Value);
 
         return false;
+    }
+
+    public override bool Equals(object obj)
+    {
+        var other = obj as IEither;
+        return this.Equals(other);
+    }
+
+    public override int GetHashCode()
+    {
+<#
+for (int sit = 1; sit <= it; sit++)
+{
+#>
+        if (this.selector == <#=sit#>)
+            return EqualityComparer<T<#=sit#>>.Default.GetHashCode(this.value<#=sit#>);
+<#
+}
+#>
+		return -917340415;
     }
 
     public override string ToString()
