@@ -19,6 +19,22 @@ namespace Either_Tests.NHibernate.Maps
                 m =>
                 {
                     m.Type<EitherUserType<Either<string, int>>>();
+                    m.Columns(
+                        cm =>
+                        {
+                            cm.Name("Alt");
+                            cm.NotNullable(true);
+                        },
+                        cm =>
+                        {
+                            cm.Name("String");
+                            cm.NotNullable(false);
+                        },
+                        cm =>
+                        {
+                            cm.Name("Int32");
+                            cm.NotNullable(false);
+                        });
                 });
         }
     }

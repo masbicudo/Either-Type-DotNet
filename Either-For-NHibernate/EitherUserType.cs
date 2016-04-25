@@ -25,7 +25,7 @@ namespace Either_For_NHibernate
                 throw new Exception("Type must be Either<...>");
 
             this.propertyTypes = new[] { NHibernateUtil.Int32 }.Concat(typeof(T).GetGenericArguments().Select(NHibernateUtil.GuessType)).ToArray();
-            this.propertyNames = new[] { "Alt" }.Concat(this.propertyTypes.Select((x, i) => Regex.Replace(x.Name, @"\W+", "_"))).ToArray();
+            this.propertyNames = new[] { "Alt" }.Concat(this.propertyTypes.Skip(1).Select((x, i) => Regex.Replace(x.Name, @"\W+", "_"))).ToArray();
         }
 
         public object GetPropertyValue(object component, int property)
@@ -82,13 +82,13 @@ namespace Either_For_NHibernate
 
             var selectedAlt = either.GetSelectedAlternative();
             var selectedValue = either.Value;
-            NHibernateUtil.Int32.NullSafeSet(cmd, selectedAlt, index, session);
-            for (int it = 0; it < either.GetRank(); it++)
+            NHibernateUtil.Int32.NullSafeSet(cmd, selectedAlt, index + 0, session);
+            for (int it = 1; it <= either.GetRank(); it++)
             {
-                this.propertyTypes[selectedAlt].NullSafeSet(
+                this.propertyTypes[it].NullSafeSet(
                     cmd,
                     it == selectedAlt ? selectedValue : null,
-                    index + selectedAlt,
+                    index + it,
                     session);
             }
         }
