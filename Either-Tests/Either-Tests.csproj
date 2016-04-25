@@ -72,6 +72,7 @@
     <Compile Include="BaseTestClasses\NHibernateUnitTestBase.cs" />
     <Compile Include="BaseTestClasses\TestsBase.cs" />
     <Compile Include="EitherComparisonTests.cs" />
+    <Compile Include="EitherNewTests.cs" />
     <Compile Include="NHibernateTests.cs" />
     <Compile Include="JsonNetTests.cs" />
     <Compile Include="BclTests.cs" />

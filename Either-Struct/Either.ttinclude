@@ -56,6 +56,15 @@ for (int sit = 1; sit <= it; sit++)
 #>
     private readonly int selector;
 
+<#
+for (int sit = 1; sit <= it; sit++)
+{
+#>
+    private static readonly bool IsNullableT<#=sit#> = !typeof(T<#=sit#>).IsValueType || typeof(T<#=sit#>).IsGenericType && typeof(Nullable<>) == typeof(T<#=sit#>).GetGenericTypeDefinition();
+<#
+}
+#>
+
 	// CONSTRUCTORS
 <#
 for (int sit = 1; sit <= it; sit++)
@@ -63,13 +72,14 @@ for (int sit = 1; sit <= it; sit++)
 #>
     public Either(T<#=sit#> value<#=sit#>)
     {
+		bool isNull = IsNullableT<#=sit#> && value<#=sit#> == null;
 <#
 	for (int itFld = 1; itFld <= it; itFld++)
 	{
 		if (itFld == sit)
         {
 #>
-        this.value<#=itFld#> = !typeof(T<#=itFld#>).IsValueType && value<#=itFld#> == null ? default(T<#=itFld#>) : value<#=itFld#>;
+        this.value<#=itFld#> = isNull ? default(T<#=itFld#>) : value<#=itFld#>;
 <#
 		}
 		else
@@ -80,7 +90,7 @@ for (int sit = 1; sit <= it; sit++)
         }
 	}
 #>
-        this.selector = <#=sit#>;
+        this.selector = isNull ? 0 : <#=sit#>;
     }
 
 <#
