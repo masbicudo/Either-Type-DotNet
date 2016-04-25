@@ -215,6 +215,16 @@ for (int sit = 1; sit <= it; sit++)
 
         return false;
     }
+		
+    public static bool operator ==(<#=TypeName#><<#=subtypesList#>> either, IEither other)
+    {
+        return either.Equals(other);
+    }
+
+    public static bool operator !=(<#=TypeName#><<#=subtypesList#>> either, IEither other)
+    {
+        return !(either == other);
+    }
 
     public override bool Equals(object obj)
     {
@@ -228,7 +238,7 @@ for (int sit = 1; sit <= it; sit++)
         if (other != null)
 			return this.Equals(other);
 
-        return this.Value.Equals(other.Value);
+        return this.Value.Equals(obj);
     }
 
 <#
