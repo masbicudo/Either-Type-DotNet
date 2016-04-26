@@ -1,12 +1,13 @@
-﻿using System;
-using BCL;
+﻿using BCL;
+using Either_Tests.BaseTestClasses;
 using Either_Tests.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Either_Tests
 {
     [TestClass]
-    public class EitherNewTests
+    public class EitherNewTests : TestsBase
     {
         [TestMethod]
         public void TestMethod1()
@@ -14,14 +15,7 @@ namespace Either_Tests
             var either = new Either<int, string>(1);
             Assert.AreEqual(1, either.Value);
             Assert.AreEqual(1, either.Value1);
-            try
-            {
-                Assert.AreEqual(1, either.Value2);
-            }
-            catch (Exception ex)
-            {
-                Assert.IsInstanceOfType(ex, typeof(InvalidOperationException));
-            }
+            AssertThrows<InvalidOperationException>(() => either.Value2);
         }
 
         [TestMethod]
@@ -29,14 +23,7 @@ namespace Either_Tests
         {
             var either = new Either<int, string>(null);
             Assert.AreEqual(null, either.Value);
-            try
-            {
-                Assert.AreEqual(null, either.Value1);
-            }
-            catch (Exception ex)
-            {
-                Assert.IsInstanceOfType(ex, typeof(InvalidOperationException));
-            }
+            AssertThrows<InvalidOperationException>(() => either.Value1);
             Assert.AreEqual(null, either.Value2);
         }
 
@@ -45,14 +32,7 @@ namespace Either_Tests
         {
             var either = new Either<int, string>("Miguel");
             Assert.AreEqual("Miguel", either.Value);
-            try
-            {
-                Assert.AreEqual("Miguel", either.Value1);
-            }
-            catch (Exception ex)
-            {
-                Assert.IsInstanceOfType(ex, typeof(InvalidOperationException));
-            }
+            AssertThrows<InvalidOperationException>(() => either.Value1);
             Assert.AreEqual("Miguel", either.Value2);
         }
 
@@ -68,14 +48,7 @@ namespace Either_Tests
             var either = new Either<int, DateTime>(1);
             Assert.AreEqual(1, either.Value);
             Assert.AreEqual(1, either.Value1);
-            try
-            {
-                Assert.AreEqual(1, either.Value2);
-            }
-            catch (Exception ex)
-            {
-                Assert.IsInstanceOfType(ex, typeof(InvalidOperationException));
-            }
+            AssertThrows<InvalidOperationException>(() => either.Value2);
         }
 
         [TestMethod]
@@ -84,14 +57,7 @@ namespace Either_Tests
             var date = DateTime.Now;
             var either = new Either<int, DateTime>(date);
             Assert.AreEqual(date, either.Value);
-            try
-            {
-                Assert.AreEqual(date, either.Value1);
-            }
-            catch (Exception ex)
-            {
-                Assert.IsInstanceOfType(ex, typeof(InvalidOperationException));
-            }
+            AssertThrows<InvalidOperationException>(() => either.Value1);
             Assert.AreEqual(date, either.Value2);
         }
 
@@ -131,17 +97,20 @@ namespace Either_Tests
             Assert.AreEqual(0, either.GetSelectedAlternative());
             Assert.AreEqual(null, either.Value);
             Assert.AreEqual(null, either.Value1);
+            AssertThrows<Exception>(() => either.Value2);
+        }
 
-            Exception exception = null;
-            try
-            {
-                var value2 = either.Value2;
-            }
-            catch (Exception ex)
-            {
-                exception = ex;
-            }
-            Assert.IsInstanceOfType(exception, typeof(Exception));
+        [TestMethod]
+        public void TestMethod9()
+        {
+            var either = new Either<int?, DateTime>(null);
+
+            // in this case, selector is 0, because the value is null
+            // as both types are nullable, then reading from any of the alternatives shout return null
+            Assert.AreEqual(0, either.GetSelectedAlternative());
+            Assert.AreEqual(null, either.Value);
+            Assert.AreEqual(null, either.Value1);
+            AssertThrows<Exception>(() => either.Value2);
         }
     }
 }

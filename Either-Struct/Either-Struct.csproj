@@ -52,6 +52,7 @@
       <DependentUpon>EitherFactory.tt</DependentUpon>
     </Compile>
     <Compile Include="IEither.cs" />
+    <Compile Include="JetBrains.Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

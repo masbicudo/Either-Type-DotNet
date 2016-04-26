@@ -19,6 +19,7 @@ ObjectNamespace = this.Host.ResolveParameterValue("directiveId", "namespaceDirec
 
 using System;
 using System.Collections.Generic;
+using NHibernate.JsonColumn.JetBrains.Annotations;
 
 <#
 if (!String.IsNullOrEmpty(ObjectNamespace))
@@ -61,6 +62,15 @@ for (int sit = 1; sit <= it; sit++)
 {
 #>
     private static readonly bool IsNullableT<#=sit#> = !typeof(T<#=sit#>).IsValueType || typeof(T<#=sit#>).IsGenericType && typeof(Nullable<>) == typeof(T<#=sit#>).GetGenericTypeDefinition();
+<#
+}
+#>
+    private static readonly bool IsNullable =
+<#
+for (int sit = 1; sit <= it; sit++)
+{
+#>
+		<#=sit>1?"|| ":""#>IsNullableT<#=sit#><#=sit==it?";":""#>
 <#
 }
 #>
@@ -107,7 +117,7 @@ for (int sit = 1; sit <= it; sit++)
         {
             if (this.selector == 0)
             {
-                if (typeof(T<#=sit#>).IsValueType)
+                if (!IsNullableT<#=sit#>)
                     throw new InvalidOperationException($"The `<#=TypeName#><<#=subtypesList#>>` holds no value at all");
                 return default(T<#=sit#>);
             }
@@ -162,15 +172,20 @@ for (int sit = 1; sit <= it; sit++)
 <#
 }
 #>
-            if (<#=string.Join(" && ", Enumerable.Range(1, it).Select(i => namer("typeof(T{0}).IsValueType", i)))#>)
-                throw new InvalidOperationException($"The `<#=TypeName#><<#=subtypesList#>>` holds no value at all");
+			this.ThrowIfInvalid();
 
             return null;
         }
     }
 
     public int GetRank() => <#=it#>;
-    public int GetSelectedAlternative() => this.selector;
+    public int GetSelectedAlternative()
+	{
+		this.ThrowIfInvalid();
+		return this.selector;
+	}
+
+	[NotNull]
     public Type GetAlternativeType(int alternative)
     {
 <#
@@ -182,20 +197,32 @@ for (int sit = 1; sit <= it; sit++)
 <#
 }
 #>
+        if (alternative == 0)
+			throw new ArgumentOutOfRangeException($"{nameof(alternative)} 0 represents a null value, and nulls have no type.");
         throw new ArgumentOutOfRangeException($"{nameof(alternative)} argument is out of range");
     }
 
+	[NotNull]
     public Type GetUnderlyingType()
     {
         if (this.selector == 0)
-            throw new InvalidOperationException($"There is no underlying type");
+		{
+			this.ThrowIfInvalid();
+			throw new InvalidOperationException($"There is no underlying type. Value is null.");
+		}
+
         return this.GetAlternativeType(this.selector);
     }
 
     public bool IsValid()
     {
-        return !(this.selector == 0 && <#=string.Join(" && ", Enumerable.Range(1, it).Select(i => namer("typeof(T{0}).IsValueType", i)))#>);
+        return this.selector != 0 || IsNullable;
     }
+
+	bool IEither.IsNullable()
+	{
+		return IsNullable;
+	}
 
     public bool Equals(<#=TypeName#><<#=subtypesList#>> other)
     {
@@ -300,10 +327,15 @@ for (int sit = 1; sit <= it; sit++)
 <#
 }
 #>
-        if (<#=string.Join(" && ", Enumerable.Range(1, it).Select(i => namer("typeof(T{0}).IsValueType", i)))#>)
-            throw new InvalidOperationException($"The `<#=TypeName#><<#=subtypesList#>>` holds no value at all");
-        return $"null";
+        this.ThrowIfInvalid();
+        return $"";
     }
+
+	private void ThrowIfInvalid()
+	{
+        if (this.selector == 0 && !IsNullable)
+			throw new InvalidOperationException($"`<#=TypeName#><<#=subtypesList#>>` is not valid.");
+	}
 }
 
 <#

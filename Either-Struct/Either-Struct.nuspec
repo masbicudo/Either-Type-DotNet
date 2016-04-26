@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Masb.Either</id>
-    <version>0.0.2</version>
+    <version>0.0.4</version>
     <title>Either Monad by MASBicudo</title>
     <authors>Miguel Angelo (masbicudo)</authors>
     <owners>Miguel Angelo</owners>
@@ -14,9 +14,12 @@
         Atempt to create an Either monad.
     </summary>
     <description>
-        See the project page for more.
+        Either monad that stores one of many known types inside it.
+        See the project page for more: Json.Net and NHibernate bindings available.
     </description>
     <releaseNotes>
+        0.0.4 - bug corrections, added `IsNullable`
+        0.0.3 - bug corrections and more robust Either comparisons
         0.0.0 - initial release - Either with up to 16 alternating types
         See the project page for more.
     </releaseNotes>
