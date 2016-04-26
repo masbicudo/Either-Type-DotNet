@@ -101,5 +101,13 @@ namespace Either_Tests
             var jsonStr = JsonConvert.SerializeObject(obj);
             Assert.AreEqual(jsonStr, @"[""1"",""2""]");
         }
+
+        [TestMethod]
+        public void TestMethod_SerializeNullableOfEither()
+        {
+            var obj = new SomethingWithNullableEither<int, string> { NullableEither = "Miguel" };
+            var jsonStr = JsonConvert.SerializeObject(obj);
+            Assert.AreEqual(jsonStr, @"{""NullableEither"":""Miguel""}");
+        }
     }
 }

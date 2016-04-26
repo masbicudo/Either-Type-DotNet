@@ -75,6 +75,7 @@
     <Compile Include="EitherComparisonTests.cs" />
     <Compile Include="EitherNewTests.cs" />
     <Compile Include="DotNetBehaviorTests.cs" />
+    <Compile Include="Models\SomethingWithNullableEither.cs" />
     <Compile Include="NHibernateTests.cs" />
     <Compile Include="JsonNetTests.cs" />
     <Compile Include="EitherFactoryTests.cs" />

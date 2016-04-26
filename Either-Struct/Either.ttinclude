@@ -247,10 +247,15 @@ for (int sit = 1; sit <= it; sit++)
         if (other == null || !this.IsValid() || !other.IsValid())
             return false;
 
-        if (this.GetUnderlyingType() == other.GetUnderlyingType())
-            return this.Value.Equals(other.Value);
+        var value = this.Value;
+        var otherValue = other.Value;
 
-        return false;
+        if (value == null)
+            return otherValue == null;
+        if (otherValue == null)
+            return false;
+
+        return this.Value.Equals(other.Value);
     }
 		
     public static bool operator ==(<#=TypeName#><<#=subtypesList#>> either, IEither other)

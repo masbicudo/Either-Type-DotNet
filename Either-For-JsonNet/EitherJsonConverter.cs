@@ -11,7 +11,8 @@ namespace Either_For_JsonNet
     {
         public override bool CanConvert(Type objectType)
         {
-            return typeof(IEither).IsAssignableFrom(objectType);
+            var type = Nullable.GetUnderlyingType(objectType) ?? objectType;
+            return typeof(IEither).IsAssignableFrom(type);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
