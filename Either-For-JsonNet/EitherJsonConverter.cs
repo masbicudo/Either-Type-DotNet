@@ -24,7 +24,8 @@ namespace Either_For_JsonNet
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var subtypes = objectType.GetGenericArguments();
+            var eitherType = Nullable.GetUnderlyingType(objectType) ?? objectType;
+            var subtypes = eitherType.GetGenericArguments();
             var value = reader.Value;
             if (reader.TokenType == JsonToken.Integer)
             {
@@ -72,14 +73,7 @@ namespace Either_For_JsonNet
             }
             else if (reader.TokenType == JsonToken.StartArray)
             {
-                var listTypes = (
-                    from x in subtypes
-                    where x.IsGenericType
-                    let def = x.GetGenericTypeDefinition()
-                    where typeof(ICollection<>).IsAssignableFrom(def) || typeof(IList<>).IsAssignableFrom(def)
-                    where !typeof(IDictionary<,>).IsAssignableFrom(def)
-                    select x
-                    ).ToArray();
+                var listTypes = subtypes.Where(IsICollectionAndNotIDictionary).ToArray();
 
                 if (listTypes.Length == 1)
                 {
@@ -94,9 +88,23 @@ namespace Either_For_JsonNet
             else
                 throw new InvalidOperationException("Cannot deserialize JSON to the `Either` type.");
 
-            var either = Either.Factory.Create(value, objectType);
+            var either = Either.Factory.Create(value, eitherType);
 
             return either;
+        }
+
+        private static bool IsICollectionAndNotIDictionary(Type type)
+        {
+            if (type.IsArray)
+                return true;
+            if (!type.IsGenericType)
+                return false;
+            var def = type.GetGenericTypeDefinition();
+            if (!typeof(ICollection<>).IsAssignableFrom(def) && !typeof(IList<>).IsAssignableFrom(def))
+                return false;
+            if (typeof(IDictionary<,>).IsAssignableFrom(def))
+                return false;
+            return true;
         }
     }
 }
